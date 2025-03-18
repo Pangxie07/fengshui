@@ -1,7 +1,3 @@
-# main.py最上方添加
-from core.bazi_calculator import BaziCalculator
-import pytz
-
 import tkinter as tk
 from tkinter import ttk, messagebox
 from lunardate import LunarDate
@@ -132,9 +128,6 @@ class FengshuiApp:
         ttk.Radiobutton(frame, text="阳历", variable=self.date_type, value="solar").grid(row=8, column=0, padx=5, pady=5)
         ttk.Radiobutton(frame, text="农历", variable=self.date_type, value="lunar").grid(row=8, column=1, padx=5, pady=5)
 
-class FengshuiApp:
-    # ...其他代码...
-
     def calculate_bazi(self):
         """排盘测算"""
         try:
@@ -144,45 +137,21 @@ class FengshuiApp:
             province = self.province_var.get()
             city = self.city_var.get()
             district = self.district_var.get()
-            
-            # 获取出生时间（转换为datetime对象）
             year = int(self.year_var.get())
             month = int(self.month_var.get())
             day = int(self.day_var.get())
-            birth_datetime = datetime(year, month, day)
-            
-            # 获取经纬度（示例数据）
-            longitude = 116.40   # 北京经度
-            latitude = 39.90     # 北京纬度
-            
-            # 获取性别（示例数据）
-            is_male = True
-            
-            # 创建计算器实例
-            calculator = BaziCalculator(
-                birth_datetime=birth_datetime,
-                longitude=longitude,
-                latitude=latitude,
-                is_male=is_male
-            )
-            
-            # 执行计算
-            result = calculator.calculate()
-            
-            # 显示结果
-            result_str = f"""
+            date_type = self.date_type.get()
+
+            # 显示结果（待实现）
+            result = f"""
             姓名：{name}
-            地区：{country}{province}{city}{district}
-            八字：{result['八字']}
-            五行状态：{result['五行状态']}
-            首步大运：{result['大运'][0]}
+            地区：{country} {province} {city} {district}
+            日期：{year}年{month}月{day}日（{date_type}）
             """
-            messagebox.showinfo("排盘结果", result_str)
-            
+            messagebox.showinfo("排盘结果", result)
         except Exception as e:
             messagebox.showerror("错误", f"排盘失败：{str(e)}")
-  
-   
+
 if __name__ == "__main__":
     try:
         root = tk.Tk()
