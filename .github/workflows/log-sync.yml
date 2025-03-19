@@ -1,0 +1,19 @@
+# .github/workflows/log-sync.yml
+name: Conversation Log Sync
+
+on:
+  push:
+    paths:
+      - 'docs/project_log.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commit log
+        run: |
+          git config --global user.name "Auto Logger"
+          git config --global user.email "auto@fengshui.project"
+          git add docs/project_log.md
+          git commit -m "Auto-update conversation log"
+          git push
